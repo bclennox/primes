@@ -10,7 +10,8 @@ func generate(limit int) <-chan int {
   c := make(chan int)
   
   go func() {
-    for i := 2; i <= limit; i++ {
+    c <- 2
+    for i := 3; i <= limit; i += 2 {
       c <- i
     }
     close(c)
@@ -33,7 +34,7 @@ func primes(g <-chan int) <-chan int {
 }
 
 func check(n int, p chan int){
-  for i := 2; i < n; i++ {
+  for i := 2; i <= n / 2; i++ {
     if n % i == 0 {
       return
     }
@@ -42,7 +43,7 @@ func check(n int, p chan int){
 }
 
 func output(p int){
-  fmt.Printf("%d is prime!\n", p)
+  fmt.Println(p)
 }
 
 func main() {

@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+  "fmt"
+  "os"
+  "strconv"
+)
 
 func generate(limit int) <-chan int {
   c := make(chan int)
@@ -42,7 +46,9 @@ func output(p int){
 }
 
 func main() {
-  for p := range primes(generate(150)) {
+  limit, _ := strconv.Atoi(os.Args[1])
+
+  for p := range primes(generate(limit)) {
     output(p)
   }
 }
